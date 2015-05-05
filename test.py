@@ -35,11 +35,12 @@ def preprocess():
 
 def train(train_name):
     a = './train'+' '+train_name
-    p1 = os.popen(a,'r')
+    p1 = os.popen(a)
 
 def predict(model_name, test_name, output_name):
     b = './predict'+' '+test_name+' '+model_name+' '+output_name
-    p2 = os.popen(b,'r')
+    p2 = os.popen(b)
+    print p2.read()
 
 if __name__ == "__main__":
     time_start = time.time()
@@ -54,7 +55,7 @@ if __name__ == "__main__":
     for i in range(0,75):
         p[i].join()
     for i in range(0,75):
-        q += [multiprocessing.Process(target=predict, args=(os.path.join(BASE_DIR,'train'+str(1)+'.model'),os.path.join(BASE_DIR,'test.txt'),os.path.join(BASE_DIR,'output'+str(i+1))))]
+        q += [multiprocessing.Process(target=predict, args=(os.path.join(BASE_DIR,'train'+str(i+1)+'.model'),os.path.join(BASE_DIR,'test.txt'),os.path.join(BASE_DIR,'output'+str(i+1))))]
         q[i].start()
     for i in range(0,75):
         q[i].join()
